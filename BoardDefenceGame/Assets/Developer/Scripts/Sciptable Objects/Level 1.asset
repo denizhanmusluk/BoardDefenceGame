@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9733a3b14bb5b6749a75efae2302ea40, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  levelIndex: 0
+  levelPrefab: {fileID: 3808878457201932106, guid: b419ddcc85d03934d868c62c7740fd69,
+    type: 3}
+  chapters:
+  - _enemyCount: 05000000
+  - _enemyCount: 08000000
+  - _enemyCount: 0e000000
+  - _enemyCount: 0e000000
+  - _enemyCount: 11000000
+  - _enemyCount: 17000000
+  - _enemyCount: 17000000
+  enemyPool: 06000000
+  isThereBoss: 0
+  handLevel: 5
