@@ -3,15 +3,6 @@ using UnityEngine;
 
 public class GunCrossbow : GunSystem
 {
-    [Header("Gun Settings")]
-    public float attackRange;
-    public float projectileSpeed;
-    public float projectileRotationSpeed;
-    public int bulletCount = 1;
-
-    public List<Transform> inRangeTargetList;
-    public Transform targetTr;
-
     public override void AttackSpesific(float cooldown)
     {
         EnsureList();
@@ -19,7 +10,7 @@ public class GunCrossbow : GunSystem
 
         if (!isThereTarget) return;
 
-        for (int i = 0; i < bulletCount; i++)
+        for (int i = 0; i < projectileCount; i++)
         {
             targetTr = GetNearestTarget();
             if (targetTr == null) continue;
@@ -43,14 +34,13 @@ public class GunCrossbow : GunSystem
         if (list == null || list.Count == 0) return;
 
         Vector3 selfPos = transform.position;
-        float range = attackRange;
 
         for (int i = 0; i < list.Count; i++)
         {
             Enemy e = list[i];
             if (e == null || !e.isTargetable) continue;
 
-            if (Vector3.Distance(e.transform.position, selfPos) <= range)
+            if (Mathf.Abs(e.transform.position.y - selfPos.y) <= verticalRange && Mathf.Abs(e.transform.position.x - selfPos.x) <= horizontalRange)
             {
                 isThereTarget = true;
                 inRangeTargetList.Add(e.transform);
@@ -99,7 +89,7 @@ public class GunCrossbow : GunSystem
             projectileSpeed,
             projectileRotationSpeed,
             dmg,
-            attackRange
+            verticalRange
         );
 
         var hp = target.GetComponent<EnemyHealthController>();

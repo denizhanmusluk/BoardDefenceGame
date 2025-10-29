@@ -48,7 +48,6 @@ public class Enemy : MonoBehaviour
         animator?.SetTrigger("die");
 
         MoneyManager.Instance.MoneyCreateWorld(transform.position, 10, 1, false, false);
-        Globals.earnedMoney_inLevel += 10;
 
         Invoke(nameof(ResetThis), 2f);
         Invoke(nameof(Despawn), 2f);

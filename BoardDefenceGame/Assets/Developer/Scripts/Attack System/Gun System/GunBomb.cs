@@ -3,22 +3,13 @@ using UnityEngine;
 
 public class GunBomb : GunSystem
 {
-    [Header("Gun Settings")]
-    public float attackRange;
-    public float projectileSpeed;
-    public float projectileRotationSpeed;
-    public int bombCount = 1;
-
-    public List<Transform> inRangeTargetList; // Inspector'da baðlý olabilir
-    public Transform targetTr;
-
     public override void AttackSpesific(float cooldown)
     {
         EnsureList();
         ScanTargetsInRange();
         if (!isThereTarget) return;
 
-        for (int i = 0; i < bombCount; i++)
+        for (int i = 0; i < projectileCount; i++)
         {
             targetTr = GetNearestTarget();
             if (targetTr == null) continue;
@@ -42,14 +33,13 @@ public class GunBomb : GunSystem
         if (list == null || list.Count == 0) return;
 
         Vector3 selfPos = transform.position;
-        float range = attackRange;
 
         for (int i = 0; i < list.Count; i++)
         {
             Enemy e = list[i];
             if (e == null || !e.isTargetable) continue;
 
-            if (Vector3.Distance(e.transform.position, selfPos) <= range)
+            if (Mathf.Abs(e.transform.position.y - selfPos.y) <= verticalRange && Mathf.Abs(e.transform.position.x - selfPos.x) <= horizontalRange)
             {
                 isThereTarget = true;
                 inRangeTargetList.Add(e.transform);
@@ -98,8 +88,8 @@ public class GunBomb : GunSystem
             projectileSpeed,
             projectileRotationSpeed,
             dmg,
-            attackRange,
-            explosionRadius
+            explosionRadius,
+            verticalRange
         );
     }
 }

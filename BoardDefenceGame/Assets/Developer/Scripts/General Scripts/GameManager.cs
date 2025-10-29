@@ -35,7 +35,6 @@ public class GameManager : Singleton<GameManager>
     {
         Globals.chapterLevel = 0;
         Globals.currentEnergy = 0f;
-        Globals.earnedMoney_inLevel = 0;
     }
 
     private void SaveGlobalData()

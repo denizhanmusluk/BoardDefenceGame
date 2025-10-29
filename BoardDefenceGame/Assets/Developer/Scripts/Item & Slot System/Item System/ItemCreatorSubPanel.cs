@@ -62,7 +62,6 @@ public class ItemCreatorSubPanel : Singleton<ItemCreatorSubPanel>
     {
         int randomItemSelect = CalculateProbability();
         Item newItem;
-
         newItem = Instantiate(itemPoolList[randomItemSelect], itemCreatePos.position, itemCreatePos.transform.rotation);
         newItem.itemMergeLevel = itemLevel;
         currentItemList.Add(newItem);

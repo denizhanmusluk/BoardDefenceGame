@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2185471dfb0773745b01785e63a430dd, type: 3}
-  m_Name: Enemy 2
+  m_Script: {fileID: 11500000, guid: 538594a0b6bb45449811986498abf106, type: 3}
+  m_Name: Gun Settings - Cannon
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1492173088815123799, guid: 9c881e1ec83ded146ba0179555896498,
-    type: 3}
-  enemyHealth: 10
-  enemyDamage: 5
-  _attackCooldown: 0.5
-  moveSpeed: 0.25
+  attackDamage: 10
+  verticalRange: 1
+  horizontalRange: 5
+  attackCooldown: 5

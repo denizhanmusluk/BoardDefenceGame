@@ -97,7 +97,6 @@ public class LevelManager : Singleton<LevelManager>
     private IEnumerator ChapterCompleteRoutine()
     {
         MoneyManager.Instance.MoneyCreateUIPosToWorld(12, 1, true, false);
-        Globals.earnedMoney_inLevel += 12;
 
         if (UIManager.Instance?.waveCompleteTextGO != null)
         {

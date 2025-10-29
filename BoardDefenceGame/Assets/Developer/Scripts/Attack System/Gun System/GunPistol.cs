@@ -3,46 +3,53 @@ using UnityEngine;
 
 public class GunPistol : GunSystem
 {
-    [Header("Gun Settings")]
-    public float attackRange;
-    public float projectileSpeed;
-    public float projectileRotationSpeed;
-    public int bulletCount = 1;
-
-    private readonly List<Transform> targetsInRange = new();
-
     public override void AttackSpesific(float cooldown)
     {
-        isThereTarget = false;
-        targetsInRange.Clear();
-
-        foreach (Enemy enemy in PlayerManager.Instance.enemyList)
-        {
-            if (enemy == null || !enemy.isTargetable) continue;
-
-            if (Vector3.Distance(enemy.transform.position, transform.position) <= attackRange)
-            {
-                isThereTarget = true;
-                targetsInRange.Add(enemy.transform);
-            }
-        }
-
+        EnsureList();
+        ScanTargetsInRange();
         if (!isThereTarget) return;
 
-        for (int i = 0; i < bulletCount; i++)
+        for (int i = 0; i < projectileCount; i++)
         {
-            Transform nearest = GetNearestTarget();
-            if (nearest == null) continue;
-            Fire(nearest);
+            targetTr = GetNearestTarget();
+            if (targetTr == null) continue;
+            Attack(targetTr);
         }
     }
+    private void EnsureList()
+    {
+        if (inRangeTargetList == null)
+            inRangeTargetList = new List<Transform>();
+        else
+            inRangeTargetList.Clear();
+    }
+    private void ScanTargetsInRange()
+    {
+        isThereTarget = false;
 
+        var list = PlayerManager.Instance != null ? PlayerManager.Instance.enemyList : null;
+        if (list == null || list.Count == 0) return;
+
+        Vector3 selfPos = transform.position;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            Enemy e = list[i];
+            if (e == null || !e.isTargetable) continue;
+
+            if (Mathf.Abs(e.transform.position.y - selfPos.y) <= verticalRange && Mathf.Abs(e.transform.position.x - selfPos.x) <= horizontalRange)
+            {
+                isThereTarget = true;
+                inRangeTargetList.Add(e.transform);
+            }
+        }
+    }
     private Transform GetNearestTarget()
     {
         Transform closest = null;
         float minDist = float.MaxValue;
 
-        foreach (Transform t in targetsInRange)
+        foreach (Transform t in inRangeTargetList)
         {
             float dist = Vector3.Distance(t.position, transform.position);
             if (dist < minDist)
@@ -55,7 +62,7 @@ public class GunPistol : GunSystem
         return closest;
     }
 
-    private void Fire(Transform target)
+    private void Attack(Transform target)
     {
         if (target == null) return;
 
@@ -63,7 +70,17 @@ public class GunPistol : GunSystem
         float damage = prjectileDamage;
         Quaternion spawnRot = Quaternion.Euler(-32.84f, 0, 0);
 
-        SpawnManager.Instance.SpawnCrossBow(this, projectileTR, projectileSpawnPosTR.position, spawnRot, target, projectileSpeed, projectileRotationSpeed, damage, attackRange);
+        SpawnManager.Instance.SpawnCrossBow(
+            this,
+            projectileTR,
+            projectileSpawnPosTR.position,
+            spawnRot,
+            target,
+            projectileSpeed,
+            projectileRotationSpeed, 
+            damage,
+            verticalRange
+         );
 
         if (damage > target.GetComponent<EnemyHealthController>().CurrentHealth)
             target.GetComponent<Enemy>().isTargetable = false;

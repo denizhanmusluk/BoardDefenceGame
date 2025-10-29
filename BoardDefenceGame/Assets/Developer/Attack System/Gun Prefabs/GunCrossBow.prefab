@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19b1e79c56384845a7830064d4bbb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunSettings: {fileID: 11400000, guid: 5eea694496f72fd4687bcc3ba23f2c02, type: 2}
   gunBaseTR: {fileID: 7866067822543432100}
   projectileTR: {fileID: 5010578610756215195, guid: af572c2222da5c64a988589f920ee014,
     type: 3}
@@ -52,12 +53,12 @@ MonoBehaviour:
   attackCooldown: 2.25
   prjectileDamage: 1
   explosionRadius: 0
-  isThereTarget: 0
-  currentItem: {fileID: 0}
   attackRange: 20
   projectileSpeed: 1
   projectileRotationSpeed: 0
-  bulletCount: 1
+  projectileCount: 1
+  isThereTarget: 0
+  currentItem: {fileID: 0}
   inRangeTargetList: []
   targetTr: {fileID: 0}
 --- !u!1 &4596487849146330600

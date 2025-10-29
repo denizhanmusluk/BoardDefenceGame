@@ -37,7 +37,6 @@ public abstract class Item : MonoBehaviour
     public List<Item> mergableItems;
     public Item targetItem;
 
-    public GunSystem itemGun;
     public List<Slot> targetSlotList = new List<Slot>();
     public Slot targetSlot;
     public ItemCreatorSubPanel itemCreatorSubPanel;
@@ -83,7 +82,6 @@ public abstract class Item : MonoBehaviour
             itemSprt.SetActive(false);
         }
         itemSpriteList[itemMergeLevel].SetActive(true);
-        itemGun = itemGunList[itemMergeLevel];
     }
     public void MergeThis()
     {
